@@ -5,30 +5,21 @@ import genetics.genes._
 
 object GeneticAlgorithm {
 
-
-  def shortestDistance(inputData: List[Point]): Double = {
-    val number: Double = inputData(0).y + inputData(1).y
-    val actual: Double = (number/100) - .5
-    actual
+  def linearRegression[Line](input: List[Point]): Line = {
+    val x: List[Gene] = List(new Gene(.6), new Gene(.7))
+    geneticAlgorithm[Line](distance(input), geneToLine(x), x)
   }
 
-  def geneToLine(inputData: List[Gene]) : Line = {
-    new Line(inputData(0).geneValue, inputData(1).geneValue)
+  def distance[T](inputData: List[Point]): T => Double = (x :T) => { //(4,5)(2,3) - (4,4)(2,2)
+    inputData(0).y + inputData(1).y
   }
 
-  def geneticAlgorithm[T](distance: T => Double, geneToL: List[Gene] => T, list:List[Gene]): T ={
-
+  def geneToLine[T](inputData: List[Gene]) : T = {
+    new T(inputData(0).geneValue, inputData(1).geneValue)
   }
 
-  def main(args: Array[String]): Unit = {
-    val listOfPoints: List[Point] = List(new Point(1,2), new Point(1,1))
-    val retur = shortestDistance(listOfPoints)
-    println(retur)
+  def geneticAlgorithm[T](distant: T => Double, geneToL: List[Gene] => T, list:List[Gene]): T ={
+    new T
   }
-  /*def main(args: Array[String]): Unit = {
-    val listOfPoints: List[Gene] = List(new Gene(.5), new Gene(.5))
-    val retur = geneToLine(listOfPoints)
-    println(retur)
-  }*/
 
 }
