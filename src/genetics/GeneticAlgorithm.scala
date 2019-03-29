@@ -7,19 +7,25 @@ object GeneticAlgorithm {
 
   def linearRegression[Line](input: List[Point]): Line = {
     val x: List[Gene] = List(new Gene(.6), new Gene(.7))
-    geneticAlgorithm[Line](distance(input), geneToLine(x), x)
+    geneticAlgorithm(distance(input), geneToLine(x), x)
   }
 
-  def distance[T](inputData: List[Point]): T => Double = (x :T) => { //(4,5)(2,3) - (4,4)(2,2)
-    inputData(0).y + inputData(1).y
+  def distance(inputData: List[Point]): Line => Double = {
+    line: Line => {
+      var sum: Double = 0
+      for (points <- inputData){
+        sum += Math.abs(points.y) - Math.abs(line.evaluate(points.x))
+      }
+      sum
+    }
   }
 
-  def geneToLine[T](inputData: List[Gene]) : T = {
-    new T(inputData(0).geneValue, inputData(1).geneValue)
+  def geneToLine(inputData: List[Gene]) : Line = {
+    var x = new Line(inputData(0).geneValue, inputData(1).geneValue)
   }
 
-  def geneticAlgorithm[T](distant: T => Double, geneToL: List[Gene] => T, list:List[Gene]): T ={
-    new T
+  def geneticAlgorithm[Line](distant: Line => Double, geneToL: List[Gene] => Line, list:List[Gene]): Line ={
+
   }
 
 }
